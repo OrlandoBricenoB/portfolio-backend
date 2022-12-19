@@ -1,0 +1,26 @@
+{
+  "name": "portfolio-backend",
+  "version": "1.0.0",
+  "description": "Backend del Portafolio de OrlandoBricenoB",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OrlandoBricenoB/portfolio-backend.git"
+  },
+  "author": "OrlandoBricenoB",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OrlandoBricenoB/portfolio-backend/issues"
+  },
+  "homepage": "https://github.com/OrlandoBricenoB/portfolio-backend#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.8.0",
+    "nodemon": "^2.0.20"
+  }
+}
