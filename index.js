@@ -36,6 +36,6 @@ app.get('/api/v1/:id', (req, res) => {
   })
 })
 
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log(`Servidor iniciado en el puerto ${PORT}`)
 })
