@@ -1,0 +1,41 @@
+require('dotenv').config()
+
+const express = require('express')
+
+const isNumber = require('./utils/isNumber')
+
+const PORT = process.env.PORT || 5000
+const app = express()
+
+// * Ruta principal.
+app.get('/', (req, res) => {
+  res.json({
+    ok: true,
+    message: 'Hello world!',
+    from: 'orlandobricenob.dev'
+  })
+})
+
+app.get('/:id', (req, res) => {
+  const { id } = req.params
+
+  if (!isNumber(Number(id))) {
+    res.status(401).json({
+      error: {
+        name: 'BadRequest',
+        message: 'ID is not a number.'
+      }
+    })
+    return
+  }
+
+  res.json({
+    ok: true,
+    message: 'Usuario de id: ' + id,
+    from: 'orlandobricenob.dev'
+  })
+})
+
+app.listen(PORT, () => {
+  console.log(`Servidor iniciado en el puerto ${PORT}`)
+})
