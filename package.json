@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "server-dev": "pm2 start npm --name \"backend-dev\" -- run dev"
   },
   "repository": {
     "type": "git",
