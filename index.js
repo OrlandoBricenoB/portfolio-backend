@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000
 const app = express()
 
 // * Ruta principal.
-app.get('/', (req, res) => {
+app.get('/api/v1/', (req, res) => {
   res.json({
     ok: true,
     message: 'Hello world!',
@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
   })
 })
 
-app.get('/:id', (req, res) => {
+app.get('/api/v1/:id', (req, res) => {
   const { id } = req.params
 
   if (!isNumber(Number(id))) {
