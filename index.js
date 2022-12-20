@@ -1,41 +1,33 @@
 require('dotenv').config()
-
 const express = require('express')
-
-const isNumber = require('./utils/isNumber')
 
 const PORT = process.env.PORT || 5000
 const app = express()
 
-// * Ruta principal.
-app.get('/api/v1/', (req, res) => {
-  res.json({
-    ok: true,
-    message: 'Hello world!',
-    from: 'orlandobricenob.dev'
-  })
-})
+// * Allow body with json data.
+app.use(express.json())
 
-app.get('/api/v1/:id', (req, res) => {
-  const { id } = req.params
+// * Import database connect.
+const connect = require('./connection')
 
-  if (!isNumber(Number(id))) {
-    res.status(401).json({
-      error: {
-        name: 'BadRequest',
-        message: 'ID is not a number.'
-      }
+// * Router
+const apiV1 = require('./routes/index.routes')
+
+app.use('/api/v1/', apiV1)
+
+const onServer = async () => {
+  const [error] = await connect()
+  
+  if (error) {
+    console.log({ error, message: 'Fijate hay error' })
+    setTimeout(() => {
+      console.log('-- Reintentar encendido.')
+      onServer()
+    }, 5000)
+  } else {
+    app.listen(PORT, () => {
+      console.log(`Servidor iniciado en el puerto ${PORT}`)
     })
-    return
   }
-
-  res.json({
-    ok: true,
-    message: 'Usuario de id: ' + id,
-    from: 'orlandobricenob.dev'
-  })
-})
-
-app.listen(PORT, () => {
-  console.log(`Servidor iniciado en el puerto ${PORT}`)
-})
+}
+onServer()
