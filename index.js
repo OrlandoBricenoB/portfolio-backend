@@ -1,11 +1,13 @@
 require('dotenv').config()
 const express = require('express')
+const cors = require('cors')
 
 const PORT = process.env.PORT || 5000
 const app = express()
-
+ 
 // * Allow body with json data.
 app.use(express.json())
+app.use(cors())
 
 // * Import database connect.
 const connect = require('./connection')
@@ -15,6 +17,7 @@ const apiV1 = require('./routes/index.routes')
 
 app.use('/api/v1/', apiV1)
 
+// * On server with reconnect system.
 const onServer = async () => {
   const [error] = await connect()
   
