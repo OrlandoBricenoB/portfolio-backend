@@ -39,6 +39,8 @@ const create = async (req, res) => {
     recommendation[field] = data[field]
   }
 
+  recommendation.verified = false
+
   await recommendation.save()
 
   res.json(recommendation)
