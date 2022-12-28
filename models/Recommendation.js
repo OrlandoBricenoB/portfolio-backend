@@ -5,6 +5,7 @@ const recommendationSchema = new Schema({
   userUUID: String,
   message: String,
   quantity: Number,
+  verified: Boolean,
   createDate: Date
 })
 
