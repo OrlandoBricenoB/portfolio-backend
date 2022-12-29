@@ -4,10 +4,11 @@ const { v4: uuidv4 } = require('uuid')
 // * Models
 const Recommendation = require('../models/Recommendation')
 
+// ! Añadir un queryString para traer solo los no-verificados.
 const getAll = async (req, res) => {
   const recommendations = await Recommendation.find()
 
-  res.json(recommendations)
+  res.json(recommendations.filter(recommendation => recommendation.verified))
 }
 
 const getOne = async (req, res) => {
