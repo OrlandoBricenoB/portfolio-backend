@@ -33,7 +33,7 @@ const create = async (req, res) => {
 
   const existEmail = await User.findOne({ email: data?.email })
 
-  if (existEmail) {
+  if (existEmail && data.email) {
     return res.status(401).json({
       error: {
         name: 'AlreadyExists',
