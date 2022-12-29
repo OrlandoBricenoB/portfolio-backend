@@ -31,17 +31,6 @@ const getOne = async (req, res) => {
 const create = async (req, res) => {
   const data = req.body
 
-  const existEmail = await User.findOne({ email: data?.email })
-
-  if (existEmail && data.email) {
-    return res.status(401).json({
-      error: {
-        name: 'AlreadyExists',
-        message: 'Already exists an user with same email.'
-      }
-    })
-  }
-
   const user = new User()
   user.uuid = uuidv4()
   user.createDate = new Date()

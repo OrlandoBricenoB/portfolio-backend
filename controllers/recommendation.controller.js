@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require('uuid')
 
 // * Models
 const Recommendation = require('../models/Recommendation')
+const User = require('../models/User')
 
 // ! Añadir un queryString para traer solo los no-verificados.
 const getAll = async (req, res) => {
@@ -32,14 +33,24 @@ const getOne = async (req, res) => {
 const create = async (req, res) => {
   const data = req.body
 
+  // * Crear el usuario basado en la recomendación.
+  const user = new User()
+  user.uuid = uuidv4()
+  user.createDate = new Date()
+  user.name = data?.user?.name || ''
+  user.image = ''
+
+  await user.save()
+
   const recommendation = new Recommendation()
-  recommendation.uuid = uuidv4()
-  recommendation.createDate = new Date()
 
   for (const field in data) {
     recommendation[field] = data[field]
   }
 
+  recommendation.uuid = uuidv4()
+  recommendation.userUUID = user.uuid
+  recommendation.createDate = new Date()
   recommendation.verified = false
 
   await recommendation.save()
