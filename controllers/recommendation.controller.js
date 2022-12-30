@@ -1,3 +1,6 @@
+const path = require('path')
+const fs = require('fs')
+
 // * Utils
 const { v4: uuidv4 } = require('uuid')
 
@@ -33,15 +36,28 @@ const getOne = async (req, res) => {
 const create = async (req, res) => {
   const data = req.body
 
-  console.log({ data })
+  if (!data.user.image) {
+    return res.status(401).json({
+      error: {
+        name: 'BadRequest',
+        message: 'Image is empty'
+      }
+    })
+  }
+
+  const userUUID = uuidv4()
+
+  const base64Data = data.user.image
+  const imagePath = `${userUUID}.png`
+  const filePath = path.join(__dirname, `../public/uploads/${imagePath}`)
+  fs.writeFileSync(filePath, base64Data.split('base64,')[1], 'base64')
 
   // * Crear el usuario basado en la recomendación.
   const user = new User()
-  user.uuid = uuidv4()
+  user.uuid = userUUID
   user.createDate = new Date()
   user.name = data?.user?.name || ''
-  user.image = ''
-
+  user.image = `https://orlandobricenob.dev/api/v1/uploads/${imagePath}`
   await user.save()
 
   const recommendation = new Recommendation()
