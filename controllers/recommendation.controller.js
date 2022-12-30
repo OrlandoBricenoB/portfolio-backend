@@ -5,11 +5,11 @@ const { v4: uuidv4 } = require('uuid')
 const Recommendation = require('../models/Recommendation')
 const User = require('../models/User')
 
-// ! Añadir un queryString para traer solo los no-verificados.
 const getAll = async (req, res) => {
+  const verified = JSON.parse(req.query?.verified || null) ?? true
   const recommendations = await Recommendation.find()
 
-  res.json(recommendations.filter(recommendation => recommendation.verified))
+  res.json(recommendations.filter(recommendation => verified === recommendation.verified))
 }
 
 const getOne = async (req, res) => {
@@ -32,6 +32,8 @@ const getOne = async (req, res) => {
 
 const create = async (req, res) => {
   const data = req.body
+
+  console.log({ data })
 
   // * Crear el usuario basado en la recomendación.
   const user = new User()
