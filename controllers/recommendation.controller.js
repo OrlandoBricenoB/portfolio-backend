@@ -59,7 +59,7 @@ const create = async (req, res) => {
   user.uuid = userUUID
   user.createDate = new Date()
   user.name = data?.user?.name || ''
-  user.image = `${process.env.DOMAIN}/api/v1/uploads/${imagePath}`
+  user.image = `${process.env.DOMAIN}/uploads/${imagePath}`
   await user.save()
 
   const recommendation = new Recommendation()
