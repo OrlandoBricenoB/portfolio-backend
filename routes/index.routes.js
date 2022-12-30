@@ -11,6 +11,13 @@ router.get('/', (req, res) => {
   })
 })
 
+router.get('/uploads/:image', (req, res) => {
+  const { image } = req.params
+
+  const filePath = path.join(__dirname, `../public/uploads/${image.split('&w')[0]}`)
+  res.sendFile(filePath)
+})
+
 // * User Router
 const userRouter = require('./users.routes')
 router.use('/users/', userRouter)
