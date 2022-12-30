@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 5000
 const app = express()
  
 // * Allow body with json data.
-app.use(express.json())
+app.use(express.json({ limit: '5mb' }))
 app.use(cors())
 
 // * Import database connect.
