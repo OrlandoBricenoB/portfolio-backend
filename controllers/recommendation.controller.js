@@ -50,6 +50,8 @@ const create = async (req, res) => {
   const base64Data = data.user.image
   const imagePath = `${userUUID}.png`
   const filePath = path.join(__dirname, `../public/uploads/${imagePath}`)
+
+  // * Es necesario remover desde la , hacia atrás para obtener todo el base64 puro.
   fs.writeFileSync(filePath, base64Data.split('base64,')[1], 'base64')
 
   // * Crear el usuario basado en la recomendación.
