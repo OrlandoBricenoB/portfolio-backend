@@ -13,8 +13,9 @@ router.get('/', (req, res) => {
 
 router.get('/uploads/:image', (req, res) => {
   const { image } = req.params
-
+  
   const filePath = path.join(__dirname, `../public/uploads/${image.split('&w')[0]}`)
+  console.log({ filePath })
   res.sendFile(filePath)
 })
 
