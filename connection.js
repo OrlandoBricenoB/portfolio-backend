@@ -6,7 +6,7 @@ const connect = async () => {
 
     const connectUri = process.env.DOMAIN.includes('localhost')
       ? 'mongodb://localhost:27017/portfolio'
-      : `mongodb://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@54.224.226.159:27017/portfolio?authMechanism=DEFAULT&authSource=portfolio`
+      : `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/portfolio`
 
     const connection = await mongoose.connect(connectUri)
 
